@@ -6,11 +6,12 @@ import discord
 from discord.ext.commands import Bot
 from discord.ext import commands
 import requests
+import time
 import json
 import random
 
 #Enter your discord bot token & Prefix here
-TOKEN = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+TOKEN = ''
 prefix = "!"
 
 #define your client
@@ -30,103 +31,66 @@ async def on_ready():
 
 
 @client.command(pass_context=True)
-async def ping(ctx):
-    await client.say("Pong!")
-
+async def start(ctx):
+    await client.say(f"Hello {ctx.message.author.mention}, welcome the exotic self service panel. If you are ready, please run !ready command.")
 
 @client.command(pass_context=True)
-async def hello(ctx):
-    await client.say(f"Hello {ctx.message.author.mention}")
+async def ready(ctx):
+    await client.say(f"1. What Are You Doing. Please Run !roles command if you are wanting to claim roles. Please run !purchase command if yoou want to buy.")
 
-#play dice
 @client.command(pass_context=True)
-async def dice(ctx):
-    
-    #get a random number from ["1","2","3","4","5","6"]
-    roll = random.choice(["1","2","3","4","5","6"])
-    
-    await client.say("**You rolled a: **" + roll)
+async def purchase(ctx):
+    await client.say(f"2. Commands: ```!socials - followers, likes ext``` ```!tokens - discord tokens``` ```!vip - get access to loads of  methods```")
 
-#Clear messages of any channel
 @client.command(pass_context=True)
-async def clear(ctx, number : int):
-    #check if user has permission to manage channels
-    if ctx.message.author.server_permissions.manage_channels:
-        try:
-            await client.purge_from(ctx.message.channel, limit=number+1)
-            await client.say(f"Successfully cleared {str(number)} messages from this channel")
-        except:
-            # if bot doesn't have permission to delete messages.
-            await client.say("I don't have permission to delete messages.") 
-    else:
-        #user don't have permission to manage channels
-        await client.say("You don't have permission to delete messages.")
-    
-#some calculating commands
+async def purchase(ctx):
+    await client.say(f"1. What Are You Doing. Please Run !roles command if you are wanting to claim roles. Please run !purchase command if yoou want to buy.")
 
-@client.command()
-async def percent(a: int, b: int):
-    divide3 = (a/b)
-    ans = divide3*100
-    embed = discord.Embed(title="Solved", description=str(ans), color=0x1500ff)
-    await client.say(embed=embed)
+@client.command(pass_context=True)
+async def roles(ctx):
+    await client.say(f"2. To claim youtube subscriber role please run !sub. to do staff aplication please run !staff. To claim status/roles from outher server run !claim")
 
-@client.command()
-async def root(number):
-    root_value = int(number)**(1/2.0)
-    embed = discord.Embed(title="Solved", description=str(number) + " **root is** " + str(root_value), color=0x1500ff)
-    await client.say(embed=embed)
+@client.command(pass_context=True)
+async def claim(ctx):
+    await client.say(f"3. Ok. Please wait for someone to assist you!")
+    time.sleep(1)
+    await client.say(f"<@1239162968780836906>")
+    await client.say(f"/b0tlock")
 
-@client.command()
-async def square(number):
-    squared_value = int(number) * int(number)
-    embed = discord.Embed(title="Solved", description=str(number) + " **squared is** " + str(squared_value), color=0x1500ff)
-    await client.say(embed=embed)
+@client.command(pass_context=True)
+async def socials(ctx):
+    await client.say(f"3. Ok. Please wait for someone to assist you!")
+    time.sleep(1)
+    await client.say(f"<@1239170316270567524>")
+    await client.say(f"/b0tlock")
 
+@client.command(pass_context=True)
+async def vip(ctx):
+    await client.say(f"3. Ok. Please wait for someone to assist you!")
+    time.sleep(1)
+    await client.say(f"<@1239170813773746247>")
+    await client.say(f"/b0tlock")
 
-#passing two values in cmd (a: int, b: int)
-@client.command()
-async def add(a: int, b: int):
-    embed = discord.Embed(title="Solved", description=a+b, color=0x1500ff)
-    await client.say(embed=embed)
+@client.command(pass_context=True)
+async def tokens(ctx):
+    await client.say(f"3. Ok. Please wait for someone to assist you!")
+    time.sleep(1)
+    await client.say(f"<@1239170961287286834>")
+    await client.say(f"/b0tlock")
 
-@client.command()
-async def multiply(a: int, b: int):
-    embed = discord.Embed(title="Solved", description=a*b, color=0x1500ff)
-    await client.say(embed=embed)
+@client.command(pass_context=True)
+async def sub(ctx):
+    await client.say(f"3. Ok. Please wait for someone to assist you!")
+    time.sleep(1)
+    await client.say(f"<@1239163603010064474>")
+    await client.say(f"/b0tlock")
 
-@client.command()
-async def divide(a: int, b: int):
-    divide25 = (a/b)
-    embed = discord.Embed(title="Solved", description=str(divide25), color=0x1500ff)
-    await client.say(embed=embed)
-
-@client.command()
-async def subtract(a: int, b: int):
-    embed = discord.Embed(title="Solved", description=a-b, color=0x1500ff)
-    await client.say(embed=embed)
-
-
-#api based command
-# 1. Requests to url
-# 2. Grab data from response
-# 3. Send it to the channel
-@client.command()
-async def bitcoin():
-    
-    #define url
-    url = "https://api.coindesk.com/v1/bpi/currentprice/BTC.json"
-    
-    #make "GET" request
-    response = requests.get(url)
-    
-    #grab data from response
-    value = response.json()['bpi'] ['USD'] ['rate']
-
-    #send data in channel
-    await client.say("Current Bitcoin Price is: $" + value)
-    
-#example of embed messages
+@client.command(pass_context=True)
+async def sub(ctx):
+    await client.say(f"3. Ok. Please wait for someone to assist you!")
+    time.sleep(1)
+    await client.say(f"<@1239164307896537189>")
+    await client.say(f"/b0tlock")
 
 #get info of server
 @client.command(pass_context=True)
